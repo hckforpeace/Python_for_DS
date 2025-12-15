@@ -10,7 +10,7 @@ def all_thing_is_obj(object: any) -> int:
     elif t.__name__ == "dict":
         print(t.__name__.capitalize(), ":", t)
     elif t.__name__ == "str":
-        print(object, ":", t)
+        print(object, "is in the kitchen :", t)
     else:
         print("Type not found")
     return 42
