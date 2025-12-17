@@ -2,9 +2,10 @@ import sys as sys
 
 
 def analyze_string(text: str):
-    """Analyzes a string and returns the
-    number of upper letters, lower letters,
-    punctations marks, spaces, digits"""
+    """
+    Analyzes a string and prints the number of upper letters, lower letters,
+    punctuation marks, spaces, digits.
+    """
     index = {
         "upper letters": 0,
         "lower letters": 0,
