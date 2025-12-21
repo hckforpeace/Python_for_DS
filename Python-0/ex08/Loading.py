@@ -1,10 +1,10 @@
-from time import sleep
-from tqdm import tqdm
 import os as os
 
 
 # 115 if os.get_terminal_size().columns >= 129 else
 def ft_tqdm(list: range) -> None:
+    """ This function is the replica of tqdm it takes a range and
+it will display in a charging bar the progress"""
     previousCharging = 0
     terminalWidth = os.get_terminal_size().columns
     chargingBarLen = terminalWidth - 41
@@ -27,4 +27,3 @@ def ft_tqdm(list: range) -> None:
         else:
             print(f"{prctg}|{bar}| {prog}", end="\r")
         yield
-
