@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ft_package"
+version = "0.0.1"
+authors = [{name = "egle", email = "eagle@42.fr"}]
+license = {text = "MIT"}
+description= "A sample test package"
+urls = {homepage = "https://google.com/eagle/ft_package"}
+dependencies = []
+

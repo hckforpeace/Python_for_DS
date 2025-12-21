@@ -2,3 +2,5 @@ __pycache__/
 venv/
 .venv
 AGENTS.md
+dist/
+ft_package.egg-info/

@@ -1,0 +1,7 @@
+# Build tools for ex09 (package building)
+build
+setuptools>=42
+wheel
+flake8
+# Optional: for comparing with real tqdm in ex08
+tqdm
