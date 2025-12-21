@@ -2,11 +2,12 @@ from time import sleep
 from tqdm import tqdm
 import os as os
 
-# 115 if os.get_terminal_size().columns >= 129 else 
+
+# 115 if os.get_terminal_size().columns >= 129 else
 def ft_tqdm(list: range) -> None:
     previousCharging = 0
     terminalWidth = os.get_terminal_size().columns
-    chargingBarLen = terminalWidth * 0.8
+    chargingBarLen = terminalWidth - 41
     current = 0
 
     for i in list:
@@ -18,26 +19,12 @@ def ft_tqdm(list: range) -> None:
         if ratioOfCharging != previousCharging:
             previousCharging = ratioOfCharging
 
-
-        prctg = f"{ratioOfRange:<3}%"
+        prctg = f"{ratioOfRange:>3}%"
         bar = f"{ratioOfCharging * '█'}"
         prog = f"{i + 1}/{list.stop}"
-        if (i == list.stop - 1):
-            # ratioOfRange = 100
-            # ratioOfCharging = chargingBarLen
+        if i == list.stop - 1:
             print(f"{prctg}|{bar}| {prog}")
         else:
             print(f"{prctg}|{bar}| {prog}", end="\r")
         yield
-        
-
-
-for i in ft_tqdm(range(333)):
-    sleep(0.005)
-for i in tqdm(range(333)):
-    sleep(0.005)
-
-
-print("page width", os.get_terminal_size().columns)
-print(len("██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████"))
 
