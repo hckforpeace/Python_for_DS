@@ -4,7 +4,7 @@ from PIL import Image, ImageOps
 import numpy as np
 
 
-def zoom(img: np.array) -> None:
+def zoom(img: np.array) -> np.array:
     """Zooms into the image array and displays image"""
     beginX = int(img.shape[0] * 0.30)
     beginY = int(img.shape[1] * 0.30)
@@ -18,9 +18,28 @@ def zoom(img: np.array) -> None:
     ]
 
     Img = Image.fromarray(sliced)
-    # convert to grayscale
-    grayscale_img = ImageOps.grayscale(Img)
+    return np.array(Img)
 
+
+def transpose(img: np.array) -> np.array:
+    """ Will transpose the image adn return the array transpose """
+    x = img.shape[0]
+    y = img.shape[1]
+    z = img.shape[2]
+
+    transposed = np.zeros((y, x, z), dtype=img.dtype)
+
+    for i in range(y):
+        for j in range(x):
+            transposed[i, j] = img[j, i]
+
+    return transposed
+
+
+def displayInGrayScale(img: np.array):
+    """ displays the Image in GrayScale"""
+    Img = Image.fromarray(img)
+    grayscale_img = ImageOps.grayscale(Img)
     print(
         "New shape after slicing:",
         np.array(grayscale_img)[:, :, np.newaxis].shape,
@@ -28,7 +47,6 @@ def zoom(img: np.array) -> None:
         np.array(grayscale_img).shape,
     )
     print(np.array(grayscale_img)[:, :, np.newaxis])
-
     plt.imshow(grayscale_img, cmap="gray")
     plt.show()
 
@@ -36,4 +54,6 @@ def zoom(img: np.array) -> None:
 if __name__ == "__main__":
     img = ft_load("animal.jpeg")
     if img is not None:
-        zoom(img)
+        zoomed = zoom(img)
+        transposedImg = transpose(zoomed)
+        displayInGrayScale(transposedImg)
