@@ -9,7 +9,7 @@ def ft_load(path: str) -> np.array:
         assert type(path) is str, "Type is not a string"
         img = Image.open(path)
         imgArray = np.array(img)
-        print("The shape image is:", imgArray.shape)
+        print("The shape of image is:", imgArray.shape)
         return imgArray
     except (FileNotFoundError, PermissionError) as error:
         print(error)

@@ -1,20 +1,37 @@
-from load_image import ft_load 
-from PIL import Image
+from load_image import ft_load
+from PIL import Image, ImageOps
 import numpy as np
 
-def zoom(img: np.array) -> np.array:
+
+def zoom(img: np.array) -> None:
+    """Zooms into the image array and displays image"""
     beginX = int(img.shape[0] * 0.30)
     beginY = int(img.shape[1] * 0.30)
     endX = img.shape[0] - beginX
     endY = img.shape[1] - beginY
 
+    # Zoomed image
+    sliced = img[
+        beginX:endX,
+        beginY:endY,
+    ]
 
-    sliced = img[beginX:endX, beginY:endY,]
-    # sliced = img
-    print("Image shape:", sliced.shape )
     Img = Image.fromarray(sliced)
-    Img.show()
-    return np.array(Img)
+    #convert to grayscale
+    grayscale_img = ImageOps.grayscale(Img)
+
+    print(
+        "New shape after slicing:",
+        np.array(grayscale_img)[:, :, np.newaxis].shape,
+        "or",
+        np.array(grayscale_img).shape,
+    )
+    print(np.array(grayscale_img)[:, :, np.newaxis])
+
+    grayscale_img.show()
 
 
-zoom(ft_load("animal.jpeg"))
+if __name__ == "__main__":
+    img = ft_load("animal.jpeg")
+    if img is not None:
+        zoom(img)
