@@ -1,4 +1,5 @@
 from load_image import ft_load
+import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
 import numpy as np
 
@@ -17,7 +18,7 @@ def zoom(img: np.array) -> None:
     ]
 
     Img = Image.fromarray(sliced)
-    #convert to grayscale
+    # convert to grayscale
     grayscale_img = ImageOps.grayscale(Img)
 
     print(
@@ -28,7 +29,9 @@ def zoom(img: np.array) -> None:
     )
     print(np.array(grayscale_img)[:, :, np.newaxis])
 
-    grayscale_img.show()
+    plt.imshow(grayscale_img, cmap="gray")
+    plt.grid(True)
+    plt.show()
 
 
 if __name__ == "__main__":
