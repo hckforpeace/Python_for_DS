@@ -10,6 +10,7 @@ def ft_load(path: str) -> np.array:
         img = Image.open(path)
         imgArray = np.array(img)
         print("The shape of image is:", imgArray.shape)
+        print(imgArray)
         return imgArray
     except (FileNotFoundError, PermissionError) as error:
         print(error)
