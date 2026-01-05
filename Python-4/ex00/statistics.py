@@ -1,60 +1,83 @@
 
-def display_average(*args: any):
-    try:
-        assert len(args) != 0, "ERROR"
-
-        avg = 0
-        for arg in args:
-            assert isinstance(arg, int), "ERROR"
-            avg = avg + arg 
-
-        print(f"mean : {avg / len(args)}")
-    except AssertionError as error:
-        print("ERROR")
+def var(*args: any):
+    assert len(args) != 0, "ERROR"
+    avg = mean(*args)
+    num = 0
+    for arg in args:
+        num += (((arg - avg)) ** 2)
+    return float(num / len(args))
 
 
-def display_median(*args: any):
-    try:
-        assert len(args) != 0, "ERROR"
-        args_list = list(args)
-        args_list.sort()
-        if len(args_list) % 2 == 1:
-            med = args_list[(len(args_list) // 2)]
-        else:
-            med = (args_list[(len(args_list) // 2)] + args_list[(len(args_list) // 2) - 1]) / 2
+def mean(*args: any):
+    assert len(args) != 0, "ERROR"
 
-        print(f"median : {med}")
+    avg = 0
+    for arg in args:
+        assert isinstance(arg, int), "ERROR"
+        avg = avg + arg 
+
+    return (avg / len(args))
 
 
-    except AssertionError as error:
-        print("ERROR")
 
-def display_quartile(*args):
+def median(*args):
+    assert len(args) != 0, "ERROR: No values provided"
+
+    args_list = list(args)
+    args_list.sort()  
+
+    length = len(args_list)
+
+    if length % 2 == 1:  
+        med = args_list[length // 2]
+    else: 
+        med = (args_list[length // 2] + args_list[(length // 2) - 1]) / 2
+
+    return med
+
+
+
+def quartile(*args):
+    assert len(args) != 0, "ERROR"
     sorted_list = sorted(args)
     n = len(sorted_list)
-    
-    # Simple method: multiply position by index range
-    q1_index = int(0.25 * (n - 1))
-    q3_index = int(0.75 * (n - 1))
-    
-    q1 = float(sorted_list[q1_index])
-    q3 = float(sorted_list[q3_index])
-    
-    print(f"quartile : [{q1}, {q3}]")
+
+    if n % 2 == 0:
+        lower_half = sorted_list[:n//2]
+        upper_half = sorted_list[n//2:]
+    else:
+        # Include median in both halves for Tukey method
+        lower_half = sorted_list[:n//2 + 1]
+        upper_half = sorted_list[n//2:]  
+
+    q1 = float(median(*lower_half))
+    q3 = float(median(*upper_half))
+    return [q1, q3]
 
 def ft_statistics(*args: any, **kwargs: any) -> None:
     for k, v in kwargs.items():
-        if (v == 'mean'):
-            display_average(*args)
-        elif v == 'median':
-            display_median(*args)
-            
-        elif v == 'quartile':
-            display_quartile(*args)
-        # elif v == 'std':
-        # elif v == 'var':
-        #
-        #
+        try:
+            display_stats(v, *args)
+        except AssertionError as error:
+            print("ERROR")
+
+def display_stats(statname:any, *args:any):
+        if (statname == 'mean'):
+            print(f"mean : {mean(*args)}")
+        elif statname == 'median':
+            print(f"median : {median(*args)}")  
+        elif statname == 'quartile':
+            print(f"quartile : {quartile(*args)}")
+        elif statname == 'std':
+            print(f"std : {var(*args) ** 0.5}")
+        elif statname == 'var':
+            print(f"var : {var(*args)}")
+
 
 # 1. 11. 42. 43. 64. 360
-ft_statistics(1, 42, 360, 11, 64, toto="mean", tutu="median", tata="quartile")
+# ft_statistics(1, 42, 360, 11, 64, toto="var", tutu="median", tata="quartile")
+# ft_statistics(5, 75, 450, 18, 597, 27474, 48575, toto="var", tutu="std", quartile='quartile')
+
+
+# ft_statistics(2,4,6,8,10,12,14,16, toto="mean", tutu="median", tata="quartile")
+# ft_statistics(1, 3, 5, 7, 9, 11, 13, toto="mean", tutu="median", tata="quartile")
